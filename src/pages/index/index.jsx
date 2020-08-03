@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Button, Text } from '@tarojs/components'
-
+import { AtButton } from 'taro-ui'
 import { add, minus, asyncAdd } from '../../actions/counter'
 
 import './index.scss'
@@ -34,6 +34,7 @@ class Index extends Component {
   render () {
     return (
       <View className='index'>
+         <AtButton type='primary'>按钮文案</AtButton>
         <Button className='add_btn' onClick={this.props.add}>+</Button>
         <Button className='dec_btn' onClick={this.props.dec}>-</Button>
         <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>

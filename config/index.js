@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 const config = {
   projectName: 'medical',
   date: '2020-8-3',
@@ -9,6 +11,12 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
+  alias: {
+    '@/components': resolve(__dirname, '..', 'src/components'),
+    '@/utils': resolve(__dirname, '..', 'src/utils'),
+    '@/config': resolve(__dirname, '..', 'src/config'),
+    '@/assets': resolve(__dirname, '..', 'src/assets')
+  },
   plugins: [],
   defineConstants: {
   },
@@ -62,7 +70,7 @@ const config = {
   }
 }
 
-module.exports = function (merge) {
+export default function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
   }
