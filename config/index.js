@@ -1,4 +1,5 @@
-import { resolve } from 'path';
+// eslint-disable-next-line import/no-commonjs
+const path = require('path');
 
 const config = {
   projectName: 'medical',
@@ -12,10 +13,7 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   alias: {
-    '@/components': resolve(__dirname, '..', 'src/components'),
-    '@/utils': resolve(__dirname, '..', 'src/utils'),
-    '@/config': resolve(__dirname, '..', 'src/config'),
-    '@/assets': resolve(__dirname, '..', 'src/assets')
+    '@': path.resolve(__dirname, '..', 'src'),
   },
   plugins: [],
   defineConstants: {

@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
+import Taro from "@tarojs/taro"
 import { Provider } from 'react-redux'
 import 'taro-ui/dist/style/index.scss'
+import { setInfo } from "@/actions/global";
 import configStore from './store'
 import './app.scss'
 
 const store = configStore()
 
 class App extends Component {
-  componentDidMount () {}
-
+  componentDidMount () {
+    Taro.getSystemInfo({success:res => {
+      if(res.system.indexOf('iOS') > -1){
+        // Android导航栏高度 = 32px + 8px * 2 = 48px
+        // iOS导航栏高度 = 32px + 6px * 2 = 44px
+        res.navBarHeight = res.statusBarHeight + 44;
+      }else{
+        res.navBarHeight = res.statusBarHeight + 48;
+      }
+      store.dispatch({ ...setInfo(), text: res });
+    }
+    })
+  }
   componentDidShow () {}
 
   componentDidHide () {}
