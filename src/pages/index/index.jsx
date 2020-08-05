@@ -54,10 +54,10 @@ export default connect(
     },[]);
     const fetchList = () => {
         return new Promise(resolve=>{
-            setList(list.concat(list))
             setTimeout(()=>{
+                setList(list.concat(list))
                 resolve()
-            },2000)
+            },1000)
         })
     }
     const { systemInfo } = props;

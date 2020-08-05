@@ -1,8 +1,10 @@
-import Taro, { useReady  } from '@tarojs/taro';
+import Taro, { useReady } from '@tarojs/taro';
 import React, { PureComponent, Component , useEffect, useState,useRef , useCallback,useLayoutEffect } from "react";
+import { AtDivider,AtActivityIndicator  } from "taro-ui";
 import {
   ScrollView,
   View,
+  Text,
 } from '@tarojs/components';
 import './index.scss';
 
@@ -10,6 +12,7 @@ import './index.scss';
 export default function PageWithScroll(props){
   const [scrollTopValue,setScrollTopValue] = useState(0);
   const [refreshTrigger,setRefreshTrigger] = useState(false);
+  const [scrollToLower,setScrollToLower] = useState(false);
   const [scrollViewDistanceToTop,setScrollViewDistanceToTop] = useState(0);
   const {fetchList} = props;
   // 滚动时触发
@@ -17,8 +20,12 @@ export default function PageWithScroll(props){
     console.log('event');
   };
   // 滚动到底部/右边，会触发 scrolltolower 事件
-  const __onScrollToLower = (event) => {
+  const __onScrollToLower = async (event) => {
     console.log('__onScrollToLower');
+    setScrollToLower(true);
+    fetchList().then(()=>{
+      setScrollToLower(false);
+    });
   };
   // 自定义下拉刷新控件被下拉
   const __onRefresherPulling = (event) => {
@@ -28,12 +35,10 @@ export default function PageWithScroll(props){
   const __onRefresherRefresh = async (event) => {
     console.log('__onRefresherRefresh');
     setRefreshTrigger(true);
+    fetchList().then(()=>{
+      setRefreshTrigger(false);
+    })
   };
-  useEffect(()=>{
-    // fetchList().then(res=>{
-    //   setRefreshTrigger(false);
-    // })
-  }, [fetchList, refreshTrigger])
     // 自定义下拉刷新被复位
   const __onRefresherRestore = (event) => {
     console.log('__onRefresherRestore');
@@ -67,6 +72,10 @@ export default function PageWithScroll(props){
       >
         <View className='scroll-list'>
           {renderList()}
+          <AtDivider height={80}>
+            {scrollToLower ? <AtActivityIndicator content='加载中'></AtActivityIndicator> : 
+            <Text>没有更多了</Text>}
+          </AtDivider>
           {/* <View className='scroll-list-bottom'>
             {
               isLoading
