@@ -1,1 +1,1 @@
-export const SETINFO = 'SETINFO'
+export const SETINFO = 'SETINFO';

@@ -1,9 +1,9 @@
 import {
-    SETINFO
-  } from '../constants/global'
-  
+  SETINFO
+} from '../constants/global';
+
 export const setInfo = () => {
   return {
-    type: SETINFO
-  }
-}
+    'type': SETINFO
+  };
+};

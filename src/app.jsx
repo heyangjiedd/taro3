@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import Taro from "@tarojs/taro"
-import { Provider } from 'react-redux'
-import 'taro-ui/dist/style/index.scss'
-import { setInfo } from "@/actions/global";
-import configStore from './store'
-import './app.scss'
+import React, { Component } from 'react';
+import Taro from '@tarojs/taro';
+import { Provider } from 'react-redux';
+import 'taro-ui/dist/style/index.scss';
+import { setInfo } from '@/actions/global';
+import configStore from './store';
+import './app.scss';
 
-const store = configStore()
+const store = configStore();
 
 class App extends Component {
   componentDidMount () {
-    Taro.getSystemInfo({success:res => {
+    Taro.getSystemInfo({'success':res => {
       if(res.system.indexOf('iOS') > -1){
         // Android导航栏高度 = 32px + 8px * 2 = 48px
         // iOS导航栏高度 = 32px + 6px * 2 = 44px
@@ -18,9 +18,9 @@ class App extends Component {
       }else{
         res.navBarHeight = res.statusBarHeight + 48;
       }
-      store.dispatch({ ...setInfo(), text: res });
+      store.dispatch({ ...setInfo(), 'text': res });
     }
-    })
+    });
   }
   componentDidShow () {}
 
@@ -35,8 +35,8 @@ class App extends Component {
       <Provider store={store}>
         {this.props.children}
       </Provider>
-    )
+    );
   }
 }
 
-export default App
+export default App;
