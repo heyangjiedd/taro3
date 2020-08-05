@@ -1,0 +1,32 @@
+.ceiled {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+}
+
+.scroll-list-bottom {
+  font-size: 24px;
+  line-height: 40px;
+  color:red;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.empty {
+  padding-top: 50px;
+  text-align: center;
+  .empty-image {
+    // display: block;
+    // margin: 0 auto;
+    width: 300px;
+    height: 300px;
+  }
+  .empty-text {
+    margin-top: 24px;
+    color: #999999;
+    font-size: 32px;
+  }
+}
