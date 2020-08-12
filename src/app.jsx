@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import Taro from '@tarojs/taro';
-import { Provider } from 'react-redux';
 import 'taro-ui/dist/style/index.scss';
-import { setInfo } from '@/actions/global';
-import configStore from './store';
+import { Provider } from 'react-redux';
+import dva from './dva';
+import testRedux from './testRedux';
+import models from './models/index';
 import './app.scss';
 
-const store = configStore();
+const dvaApp = dva.createApp({
+  'initialState': {},
+  'enableLog': false,
+  'models': models.modelsGlobal
+});
+const store = dvaApp.getStore();
 
 class App extends Component {
   componentDidMount () {
@@ -18,11 +24,17 @@ class App extends Component {
       }else{
         res.navBarHeight = res.statusBarHeight + 48;
       }
-      store.dispatch({ ...setInfo(), 'text': res });
+      store.dispatch(
+        {
+          'type': 'global/setSystemInfo',
+          'payload': res
+        });
     }
     });
   }
-  componentDidShow () {}
+  componentDidShow () {
+
+  }
 
   componentDidHide () {}
 
@@ -32,9 +44,7 @@ class App extends Component {
   // 请勿修改此函数
   render () {
     return (
-      <Provider store={store}>
-        {this.props.children}
-      </Provider>
+      <Provider store={store}>{this.props.children}</Provider>
     );
   }
 }

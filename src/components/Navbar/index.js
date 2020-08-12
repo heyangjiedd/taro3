@@ -1,10 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { memo } from 'react';
 import { View } from '@tarojs/components';
+import { connect } from 'react-redux';
 import './index.scss';
 
-export default connect(({global})=>({'systemInfo':global.systemInfo}))(function(props) {
-  const {systemInfo, children} = props;
+export default connect(({global})=>({global}))(function(props) {
+  const {global = {}, children} = props;
+  const {systemInfo={}} = global;
 
   return <View className='navbar'
     style={{'height':systemInfo.navBarHeight + 'px', 'paddingTop':systemInfo.statusBarHeight + 'px'}}
